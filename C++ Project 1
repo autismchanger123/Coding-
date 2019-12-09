@@ -1,0 +1,132 @@
+/*This program calculates the fewest number of Shots, Regular, Grande and Venti cups needed to filled a customer orders from a local cofee shop with a menu.
+*/
+#include <iostream>
+#include <iomanip> // For setw and setprecision
+#include <string>
+using namespace std;
+int main()
+{
+   // Declare constants for menu choices
+   const int Plain_Coffee = 1;
+   const int Latte = 2;
+   const int Macchiato = 3;
+   const int Frappuccino = 4;
+   int choice; // Hold Menu Choices
+   
+   // Declare constants to store number of onces each cup have and cost of cofe
+   const int Shot = 1;
+   const int Regular = 8;
+   const int Grande = 16;
+   const int Venti =  24;
+   
+   // Declares variables to store inputs, results and other vaules
+   int ouncesInput = 0, shots = 0, regulars = 0, grandes = 0, ventis = 0, remainingOunces = 0;
+   string name; 
+   double price;
+   
+   // Step 1 Input
+   
+   // Menu Options
+   cout << "Welcome to the World's Best Coffee Shop" << endl;
+   cout << "1- Plain Coffee" << endl;
+   cout << "2- Latte" << endl;
+   cout << "3- Macchiato " << endl;
+   cout << "4- Frappuccino " << endl;
+   
+   // prompt user for choice
+   cout << "Enter your choice:" << endl;
+   
+   // stores the choice from user
+   cin >> choice;
+   
+  // If user put invalid options
+  if (choice != Plain_Coffee && choice != Latte && choice != Macchiato && choice != Frappuccino)
+  {
+  	cout << "This ia an invalid, Programming Ending" << endl;
+  	return 0;
+  }
+    
+	 // prompt user for number of ounces
+   cout << "Enter the number of ounces " << endl;
+   
+   // stores number of ounces from user
+   cin >> ouncesInput;
+   
+   // If user put number of O or less in the ouncesInput
+   if (ouncesInput <= 0)
+   {
+   	cout << "Coffee input is invalid, Programming Ending" << endl;
+   	return 0;
+   }
+   
+   // prompt user to give their name
+   cout << "What is your name ";
+   
+   // give the name from the user
+   cin.ignore ();
+   getline(cin, name);
+   
+   // Step 2 Processing
+   
+   // Caculate number of Venti using integer division
+   ventis = ouncesInput / Venti;
+   
+   // Caculate number of Grande using integar division and reamaining operator after Venti ounces is taken out of.
+   remainingOunces = ouncesInput % Venti;
+   grandes = remainingOunces / Grande;
+   
+   // Caculate number of Regular using integar division and remaining operator after Grande ounces is taken out of.
+   remainingOunces = ouncesInput % Grande;
+   regulars = remainingOunces / Regular;
+   
+   // Caculate number of Shot using integar diviosn and reamihng operator after Regular ounces is taken out of.
+   remainingOunces = ouncesInput % Regular;
+   shots = remainingOunces / Shot;
+   
+    // Responds to user's menu selection.
+   switch (choice)
+   {
+   	  case Plain_Coffee:
+   	  price = ouncesInput * .13;
+   	  break;
+   	  
+   	  case Latte:
+   	  price = ouncesInput * .23;
+   	  break;
+   	  
+   	  case Macchiato:
+   	  price = ouncesInput * .25;
+   	  break;
+   	  
+   	  case Frappuccino:
+   	  price = ouncesInput * .28;
+   	  break;
+   	  
+   	  default:
+   	  cout << "Invalid Choice, Programming Ending" << endl;
+   	  return 0;
+   }
+   
+   // Step 3 Output
+   const double salestax = price * .07;
+   const double total = salestax + price;
+   cout << name << endl;
+   cout << "Order:" << setprecision(3)<< ouncesInput << "oz" << endl;
+   cout << "Price of Coffee:"<< setprecision(3) << price << endl;
+   cout << "Sales Tax:" << setprecision(2) << salestax << endl;
+   cout << "Total Amount Owed:" << setprecision(3) << total << endl;
+   cout << "Cup Size" << setw(50) << "Number Needed" << endl;
+   cout << "............." << setw(50) << "................." << endl;
+   cout << "Venti" << setw(50) << ventis << endl;
+   cout << "Grande" << setw(49)<< grandes << endl;
+   cout << "Regular" << setw(48)<< regulars << endl;
+   cout << "Shot" << setw(51)<< shots << endl;
+   
+   return 0;
+   
+   
+}
+   
+   
+   
+   
