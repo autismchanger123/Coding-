@@ -1,0 +1,319 @@
+/* This program will allow the user to calculate the total income of releasing
+their songs in multiple platforms*/
+#include <iostream>
+#include <iomanip>
+#include <cstdlib>
+#include <ctime>
+using namespace std;
+
+int main()
+{
+	
+	
+	int choice, streamingService, numSongs, distribution;
+	long numStreams, totalStreams;
+	string artistName, serviceName, songName, distributionType;
+	double earnings = 0.00, distributionCharges, artistEarnings;
+	
+	// named constants
+	const double TIDAL = 0.01250;
+	const double AMAZON = 0.00402;
+	const double APPLEMUSIC = 0.00735;
+	const double SPOTIFY = 0.00437;
+	const double YOUTUBE = 0.00069;
+	
+	// distribution percentages
+	const double MAJOR_LABEL = 0.60;
+	const double INDIE_LABEL = 0.30;
+	
+	do
+	{
+		// display the home menu
+		cout << "Choose from of the following menu options: \n";
+		cout << "\n\t 1: Upload a single song to a streaming service ";
+		cout << "\n\t 2: Upload multiple songs to a streaming service ";
+		cout << "\n\t 3: Exit the program ";
+		cout << "\n\n";
+		cout << "Enter your choice (1, 2, or 3): ";
+		cin >> choice;
+		
+		if(choice == 1)
+		{
+			// menu choice #1
+			// Streaming Service Menu
+			cout << "\nWhich Streaming Service will you use to upload your song?";
+			cout << "\n\n\t 1: TIDAL";
+			cout << "\n\t 2: Amazon";
+			cout << "\n\t 3: Apple Music";
+			cout << "\n\t 4: Spotify";
+			cout << "\n\t 5: YouTube";
+			cout << "\n\n";
+			cout << "Enter your choice (1-5): ";
+			cin >> streamingService;
+			
+			// validate the input of the streaming service
+			while(streamingService < 1 or streamingService > 5)
+			{
+				cout << endl;
+				cout << "ERROR - NOT A VALID STREAMING SERVICE. Please choose from the services listed. ";
+				cout << "\n\nWhich Streaming Service will you use to upload your song?";
+				cout << "\n\n\t 1: TIDAL";
+				cout << "\n\t 2: Amazon";
+				cout << "\n\t 3: Apple Music";
+				cout << "\n\t 4: Spotify";
+				cout << "\n\t 5: YouTube";
+				cout << "\n\n";
+				cout << "Enter your choice (1-5): ";
+				cin >> streamingService;
+			}
+			
+			// set the value of the streaming service
+			switch(streamingService)
+			{
+				case 1:
+					serviceName = "TIDAL";
+					break;
+				case 2:
+					serviceName = "Amazon";
+					break;
+				case 3:
+					serviceName = "Apple Music";
+					break;
+				case 4:
+					serviceName = "Spotify";
+					break;
+				case 5:
+					serviceName = "YouTube";
+					break;
+			}
+			
+			// clear the buffer between the integer and string inputs
+			cin.ignore();
+			
+			// get the input of the name of the artist
+			cout << "\nWhat is the artist's name? ";
+			getline(cin, artistName);
+			
+			// get the input of the name of the song
+			cout << "\nWhat is the name of the song? ";
+			getline(cin, songName);
+			
+			// get the input of the number of streams
+			cout << "\nHow many streams does " << songName << " have on " << serviceName << "? ";
+			cin >> numStreams;
+			
+			// validate the number of streams
+			while(numStreams < 0)
+			{
+				cout << endl;
+				cout << "ERROR - NUMBER OF STREAMS CANNOT BE NEGATIVE.";
+				cout << "\n\nHow many streams does " << songName << " have on " << serviceName << "? ";
+				cin >> numStreams;
+			}
+	
+			// calculate the earnings
+			switch(streamingService)
+			{
+				case 1:
+					earnings = numStreams * TIDAL;
+					break;
+				case 2:
+					earnings = numStreams * AMAZON;
+					break;
+				case 3:
+					earnings = numStreams * APPLEMUSIC;
+					break;
+				case 4:
+					earnings = numStreams * SPOTIFY;
+					break;
+				case 5:
+					earnings = numStreams * YOUTUBE;
+					break;
+			}
+	
+			// output
+			cout << setprecision(2) << showpoint << fixed;
+			cout << endl << endl;
+			cout << "Song Name: \t\t" << songName;
+			cout << "\nArtist Name: \t\t" << artistName;
+			cout << "\nStreaming Service: \t" << serviceName;
+			cout << "\nStreams: \t\t" << numStreams;
+			cout << "\nEarnings: \t\t$" << earnings << endl << endl;
+			
+		}
+		else if(choice == 2)
+		{
+			// menu choice #2
+			// Streaming Service Menu
+			cout << "\nWhich Streaming Service will you use to upload your song(s)?";
+			cout << "\n\n\t 1: TIDAL";
+			cout << "\n\t 2: Amazon";
+			cout << "\n\t 3: Apple Music";
+			cout << "\n\t 4: Spotify";
+			cout << "\n\t 5: YouTube";
+			cout << "\n\n";
+			cout << "Enter your choice (1-5): ";
+			
+			// Streaming Service input
+			cin >> streamingService;
+	
+			// validate the input of the streaming service
+			while(streamingService < 1 or streamingService > 5)
+			{
+				cout << endl;
+				cout << "ERROR - NOT A VALID STREAMING SERVICE. Please choose from the services listed. ";
+				cout << "\n\nWhich Streaming Service will you use to upload your song(s)?";
+				cout << "\n\n\t 1: TIDAL";
+				cout << "\n\t 2: Amazon";
+				cout << "\n\t 3: Apple Music";
+				cout << "\n\t 4: Spotify";
+				cout << "\n\t 5: YouTube";
+				cout << "\n\n";
+				cout << "Enter your choice (1-5): ";
+				cin >> streamingService;
+			}
+			
+			// set the value of the streaming service
+			switch(streamingService)
+			{
+				case 1:
+					serviceName = "TIDAL";
+					break;
+				case 2:
+					serviceName = "Amazon";
+					break;
+				case 3:
+					serviceName = "Apple Music";
+					break;
+				case 4:
+					serviceName = "Spotify";
+					break;
+				case 5:
+					serviceName = "YouTube";
+					break;
+			}
+	
+			// clear the buffer between integer and string inputs
+			cin.ignore();
+			
+			// get the input of the number of songs to be distributed
+			cout << "\nHow many songs will be uploaded on " << serviceName << "? ";
+			cin >> numSongs;
+			
+			while(numSongs < 0)
+			{
+				cout << endl;
+				cout << "ERROR - NUMBER OF SONGS CANNOT BE NEGATIVE." << endl;
+				cout << "\nHow many songs will be uploaded on " << serviceName << "? ";
+				cin >> numSongs;	
+			}
+			
+			// get the input of the distribution type
+			cout << "\nWhich type of distribution will you use to distribute your song(s)?";
+			cout << "\n\n\t 1: MAJOR LABEL";
+			cout << "\n\t 2: INDEPENDENT LABEL";
+			cout << "\n\n";
+			cout << "Enter your choice (1 or 2): ";
+			
+			// distribution input
+			cin >> distribution;
+			
+			while(distribution < 1 or distribution > 2)
+			{
+				cout << endl;
+				cout << "ERROR - INVALID DISTRIBUTION CHOSEN. ";
+				cout << "Please choose from one of the options listed. \n";
+				cout << "\nWhich type of distribution will you use to distribute your song(s)?";
+				cout << "\n\n\t 1: MAJOR LABEL";
+				cout << "\n\t 2: INDEPENDENT LABEL";
+				cout << "\n\n";
+				cout << "Enter your choice (1 or 2): ";
+				// distribution input
+				cin >> distribution;	
+			}
+			
+			// generate the random number of streams and display using a for loop
+			cout << endl << endl;
+			
+			for(int song = 0; song < numSongs; song++)
+			{
+				if(distribution == 1)
+				{
+					// major labels generate between 100,000 and 50,000,000 streams
+					numStreams = 100000 + rand() % 49900000;
+				}
+				else
+				{
+					// indie labels generate between 10,000 and 1,000,000 streams
+					numStreams = 10000 + rand() % 990000;
+				}
+				
+				// add to the total streams
+				totalStreams += numStreams;
+				
+				// output the song number and the streams
+				cout << "\t Song #" << (song + 1) << ": \t" << numStreams << " streams" << endl;
+			}
+			
+			// calculate the earnings
+			switch(streamingService)
+			{
+				case 1:
+					earnings = totalStreams * TIDAL;
+					break;
+				case 2:
+					earnings = totalStreams * AMAZON;
+					break;
+				case 3:
+					earnings = totalStreams * APPLEMUSIC;
+					break;
+				case 4:
+					earnings = totalStreams * SPOTIFY;
+					break;
+				case 5:
+					earnings = totalStreams * YOUTUBE;
+					break;
+			}
+			
+			// calculate the distribution charges
+			switch(distribution)
+			{
+				case 1:
+					// major label
+					distributionCharges = earnings * MAJOR_LABEL;
+					break;
+				case 2:
+					// indie label
+					distributionCharges = earnings * INDIE_LABEL;
+					break;
+			}
+			
+			// calculate the artist earnings
+			artistEarnings = earnings - distributionCharges;
+			
+			// display the streaming service, total streams, total earnings, artist earnings, label earnings
+			cout << setprecision(2) << showpoint << fixed;
+			cout << endl << endl;
+			cout << "\nStreaming Service: \t" << serviceName;
+			cout << "\nStreams: \t\t" << totalStreams;
+			cout << "\nEarnings: \t\t$" << earnings;
+			cout << "\nArtist Earnings: \t$" << artistEarnings;
+			cout << "\nLabel Earnings: \t$" << distributionCharges << endl << endl;
+		}
+		else if(choice == 3)
+		{
+			// menu choice #3
+			cout << "\nThank you for using the program!\n\n";
+		}
+		else
+		{
+			// validation
+			// display the error message
+			cout << endl;
+			cout << "ERROR - NOT A VALID MENU CHOICE. PLEASE TRY AGAIN.";
+			cout << endl << endl;
+		}
+		
+	}while(choice != 3);	
+}
+
