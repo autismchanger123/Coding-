@@ -1,0 +1,132 @@
+// Moduclar Programming That Calculates The Total Intrests On A Bank
+// Created By Jimmy Strickland
+#include <iostream>
+#include<iomanip>
+#include <string>
+#include <iomanip>
+using namespace std;
+
+//Global Constants For Percent Intrest
+const double Checking_Rate1 = 0.0;
+const double Checking_Rate2 = .001;
+const double Checking_Rate3 = .002;
+const double Savings_Rate1 = 0.0;
+const double Savings_Rate2 = .015;
+
+//Decalre Constants For Menu Choices
+const int Checking = 1;
+const int Savings = 2;
+int type_balence; // Hold user balence
+int account_balence; // Hold user account
+int bank_accounts;   // Hold number of bank accounts
+ 
+
+// Function Prototypes
+void menuinputs();
+void intrests();
+void total();
+void bankaccounts();
+
+//Used to equal he amount of bank accounts
+ int stop = 0;
+ 
+ // Arrays
+ double Intrest[5] = {0,account_balence * .001,account_balence * .002,0,account_balence * .015};
+
+// Used To Store Intrest Of A Bank Account
+double totalintrest;
+
+//Sum
+double sum = 0.0;
+
+int main()
+{   bankaccounts();
+    do
+    {
+       menuinputs();
+	   intrests();
+	   total();
+	   stop++;
+	}while(bank_accounts != stop);
+	cout << "The total sum of all bank accounts is"<< sum << endl;
+	return 0;
+}
+
+
+void bankaccounts()
+{
+	do
+	{
+		cout << "How many bank accounts?" << endl;
+		cin >> bank_accounts;
+
+	}while(bank_accounts <= 0);
+	
+}
+
+void menuinputs()
+{
+	do
+	{
+		cout << "What type of Account" << endl;
+		cout << "1-Checking" << endl;
+		cout << "2-Savings" << endl;
+		cin >> type_balence;
+
+	}while (type_balence != Checking && type_balence != Savings);
+	
+}
+
+void intrests()
+{
+	cout <<"What is the Account Balence" << endl;
+	cin >> account_balence;
+	if (type_balence = Checking && account_balence < 100)
+	   Intrest[0]= 0;
+	else if (type_balence = Checking && account_balence >= 100 && account_balence <= 1000)
+	    Intrest[1]= account_balence * .001;
+	else if (type_balence = Checking && account_balence > 1000)
+	     Intrest[2]= account_balence * .002;
+    else if (type_balence = Savings && account_balence <= 100)
+         Intrest[3]= 0;
+    else if (type_balence = Savings && account_balence > 100)
+          Intrest[4]= account_balence * .015;
+           
+          
+          
+}
+
+void total()
+{
+          if (type_balence = Checking && account_balence < 100)
+	      {cout <<"The total Intrest of the account is\t"<< Intrest[0]<< endl;
+	       totalintrest = Intrest[0];
+	       sum += totalintrest;
+		   } 
+	else if (type_balence = Checking && account_balence >= 100 && account_balence <= 1000)
+	    {
+	     cout << "The total Intrest of the account is\t" << Intrest[1] << endl;
+	     totalintrest = Intrest[1];
+	     sum += totalintrest;
+		 } 
+	else if (type_balence = Checking && account_balence > 1000)
+	     {
+	     	cout << "The total Intrest of the account is\t" << Intrest[2]<< endl;
+	      totalintrest = Intrest[2];
+	      sum += totalintrest;
+		  } 
+    else if (type_balence = Savings && account_balence <= 100)
+         {
+		 cout << "The total Intrest of the account is\t" << Intrest[3]<< endl;
+          totalintrest = Intrest[3];
+          sum += totalintrest;
+		  } 
+    else if (type_balence = Savings && account_balence > 100)
+          {
+          	cout << "The total Intrest of the account is\t" << Intrest[4] << endl;
+           totalintrest = Intrest[4];
+           sum += totalintrest;
+   
+		   } 
+   
+}
